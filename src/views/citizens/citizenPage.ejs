@@ -1,0 +1,107 @@
+<body>
+    <div class="wrapper">
+        <div class="main-header">
+            <%- include('../layouts/index.ejs') %>
+                <div class="main-panel">
+                    <div class="content">
+                        <div class="container-fluid">
+                            <form id="searchForm" action="/citizenSearch" method="POST" onsubmit="updateAction()">
+                                <div style="width: 400px; top: 100px; position: absolute;" class="input-group">
+                                    <!-- Select option để chọn tìm kiếm theo Dân cư hoặc Phòng -->
+                                    <select id="searchType" class="form-control" onchange="updatePlaceholder()">
+                                        <option value="citizen">Tìm theo tên</option>
+                                        <option value="room">Tìm theo phòng</option>
+                                    </select>
+                                    <!-- Input để nhập dữ liệu tìm kiếm -->
+                                    <input id="searchInput" name="data" type="text" class="form-control"
+                                        placeholder="Tìm dân cư">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary" type="submit">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                            <div style="margin-left: 86%; margin-bottom: 1%;">
+                                <a class="btn btn-primary" style="color: white;text-decoration: none;"
+                                    href="/create-CitizenPage">Thêm mới dân cư</a>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <div class="card-title">Thông tin dân cư</div>
+                                        </div>
+                                        <div class="card-body">
+                                            <table class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col" style="display: none;">#</th>
+                                                        <th scope="col">Mã dân cư</th>
+                                                        <th scope="col">Số căn hộ</th>
+                                                        <th scope="col">Quan hệ</th>
+                                                        <th scope="col">Họ và Tên</th>
+                                                        <th scope="col">Ngày sinh</th>
+                                                        <th scope="col">Giới tính</th>
+                                                        <th scope="col">Quê hương</th>
+                                                        <th scope="col">Số điện thoại</th>
+                                                        <th scope="col">Chức năng</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <% listCitizens.forEach(function(citizen) { %>
+                                                        <tr>
+                                                            <td style="display: none;">
+                                                                <%= citizen.id %>
+                                                            </td>
+                                                            <td>
+                                                                <%= citizen.CitizenID %>
+                                                            </td>
+                                                            <td>
+                                                                <%= citizen.ApartID %>
+                                                            </td>
+                                                            <td>
+                                                                <%= citizen.Relationship %>
+                                                            </td>
+                                                            <td>
+                                                                <%= citizen.Name %>
+                                                            </td>
+                                                            <td>
+                                                                <%= citizen.BirthDay %>
+                                                            </td>
+                                                            <td>
+                                                                <%= citizen.Gender %>
+                                                            </td>
+                                                            <td>
+                                                                <%= citizen.Hometown %>
+                                                            </td>
+                                                            <td>
+                                                                <%= citizen.Phone %>
+                                                            </td>
+                                                            <td>
+                                                                <a href="/edit-CitizenPage/<%= citizen.id %>"><i
+                                                                        class="fa-solid fa-pencil"></i></a>
+
+                                                                <a style="margin-left: 20px; color: red;"
+                                                                    href="/delete-CitizenPage/<%= citizen.id %>"><i
+                                                                        class="fa-solid fa-trash"></i></a>
+
+                                                            </td>
+                                                        </tr>
+                                                        <% }); %>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+        </div>
+    </div>
+</body>
+
+</html>
