@@ -38,18 +38,6 @@ const editApartmentPage = async (req, res) => {
     let apart = await Apartment.findById(ApartID).exec();
     return res.render('apartments/edit-Apartment.ejs', { apart: apart })
 }
-const deleteApartmentPage = async (req, res) => {
-    let ID = req.params.id;
-    let apart = await Apartment.findById(ID).exec();
-    return res.render('apartments/delete-Apartment.ejs', { apart: apart })
-}
-const deleteApartment = async (req, res) => {
-    let ID = req.body.ID
-    await Apartment.deleteOne({
-        _id: ID
-    });
-    res.redirect('/apartment');
-}
 const editApartment = async (req, res) => {
     let id = req.body.id
     let ApartID = req.body.ApartID
@@ -64,6 +52,19 @@ const editApartment = async (req, res) => {
     });
     res.redirect('/apartment');
 }
+const deleteApartmentPage = async (req, res) => {
+    let ID = req.params.id;
+    let apart = await Apartment.findById(ID).exec();
+    return res.render('apartments/delete-Apartment.ejs', { apart: apart })
+}
+const deleteApartment = async (req, res) => {
+    let ID = req.body.ID
+    await Apartment.deleteOne({
+        _id: ID
+    });
+    res.redirect('/apartment');
+}
+
 module.exports = {
     getApartmentPage, getApartmentDetail,
     editApartmentPage, editApartment,

@@ -70,6 +70,7 @@ const editCitizen = async (req, res) => {
     let Hometown = req.body.Hometown
     let BirthDay = req.body.BirthDay
     let Phone = req.body.Phone
+
     await Citizen.updateOne({ _id: id }, {
         CitizenID: CitizenID, ApartID: ApartID, Relationship: Relationship,
         Name: Name, BirthDay: BirthDay, Gender: Gender,
