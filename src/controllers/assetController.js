@@ -1,13 +1,13 @@
 const express = require('express');
 const Asset = require('../models/asset')
 
-const createAssetPage = (req, res) => {
-    return res.render('asset/create-Asset.ejs')
-}
 const getAssetPage = async (req, res) => {
     let assetCatID = req.params.AssetCatID
     let asset = await Asset.find({ AssetCatID: assetCatID }).exec()
     return res.render('asset/assetPage.ejs', { listAssets: asset })
+}
+const createAssetPage = (req, res) => {
+    return res.render('asset/create-Asset.ejs')
 }
 const createAsset = async (req, res) => {
     let AssetID = req.body.AssetID

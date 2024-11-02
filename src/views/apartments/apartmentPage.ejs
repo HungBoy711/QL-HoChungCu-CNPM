@@ -5,9 +5,13 @@
                 <div class="main-panel">
                     <div class="content">
                         <div class="container-fluid">
-                            <div style="margin-left: 86%; margin-bottom: 1%;">
-                                <a class="btn btn-primary" style="color: white;text-decoration: none;"
-                                    href="/create-ApartmentPage">Thêm mới căn hộ</a>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                </div>
+                                <div class="col-md-6 text-right">
+                                    <a class="btn btn-primary" style="color: white;text-decoration: none;"
+                                        href="/create-ApartmentPage"><i class="fa-regular fa-plus"></i></a>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
@@ -21,11 +25,10 @@
                                                     <tr>
                                                         <th scope="col" style="display: none;">#</th>
                                                         <th scope="col">Số căn hộ</th>
+                                                        <th scope="col">Số ngườI ở</th>
                                                         <th scope="col">Tầng</th>
                                                         <th scope="col">Trạng thái</th>
                                                         <th scope="col">Kích thước</th>
-                                                        <th scope="col">Tiền nước</th>
-                                                        <th scope="col">Tiền điện</th>
                                                         <th scope="col">Chức năng</th>
                                                     </tr>
                                                 </thead>
@@ -39,6 +42,9 @@
                                                                 <%= apartment.ApartID %>
                                                             </td>
                                                             <td>
+                                                                <%= apartment.CitizenCount %>
+                                                            </td>
+                                                            <td>
                                                                 <%= apartment.Floor %>
                                                             </td>
                                                             <td>
@@ -46,12 +52,6 @@
                                                             </td>
                                                             <td>
                                                                 <%= apartment.Size %>
-                                                            </td>
-                                                            <td>
-                                                                <%= apartment.WaterFee %>
-                                                            </td>
-                                                            <td>
-                                                                <%= apartment.ElectricityFee %>
                                                             </td>
                                                             <td style="width: 200px;">
                                                                 <a class="btn btn-primary"

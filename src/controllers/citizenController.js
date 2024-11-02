@@ -1,7 +1,6 @@
 const express = require('express');
 const Citizen = require('../models/citizen')
 
-
 const getHomePage = async (req, res) => {
     return res.render('home/homePage.ejs')
 }

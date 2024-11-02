@@ -1,0 +1,113 @@
+<body>
+    <%- include('../invoices/create-Invoice.ejs') %>
+        <%- include('../invoices/edit-Invoice.ejs') %>
+            <%- include('../invoices/delete-Invoice.ejs') %>
+                <div class="wrapper">
+                    <div class="main-header">
+                        <%- include('../layouts/index.ejs') %>
+                            <div class="main-panel">
+                                <div class="content">
+                                    <div class="container-fluid">
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                            </div>
+                                            <div class="col-md-6 text-right">
+                                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                                    data-target="#createModal">
+                                                    <i class="fa-regular fa-plus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <div class="card-title">Danh sách hoá đơn</div>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <table class="table table-hover">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th scope="col" style="display: none;">#</th>
+                                                                    <th scope="col">Mã hoá đơn</th>
+                                                                    <th scope="col">Số căn hộ</th>
+                                                                    <th scope="col">Hạn thanh toán hiện
+                                                                        tại</th>
+                                                                    <th scope="col">Hạn thanh toán tiếp
+                                                                        theo</th>
+                                                                    <th scope="col">Phí căn hộ</th>
+                                                                    <th scope="col">Phí điện</th>
+                                                                    <th scope="col">Phí nước</th>
+                                                                    <th scope="col" class="col-3">Chức năng</th>
+                                                                </tr>
+                                                            </thead>
+
+                                                            <tbody>
+                                                                <% listInvoices.forEach(function(invoice) { %>
+                                                                    <tr>
+                                                                        <td style="display: none;">
+                                                                            <%= invoice._id %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%= invoice.InvoiceID %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%= invoice.ApartID %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%= invoice.CurentDateTerm %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%= invoice.NextPaymentTerm %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%= invoice.ApartmentFee %> VND
+                                                                        </td>
+                                                                        <td>
+                                                                            <%= invoice.ElectricityFee %> VND
+                                                                        </td>
+                                                                        <td>
+                                                                            <%= invoice.WaterFee %> VND
+                                                                        </td>
+                                                                        <td style="width: 200px;">
+                                                                            <!-- <button type="button"
+                                                                                class="btn btn-primary">
+                                                                                Xác nhận thanh toán
+
+                                                                            </button> -->
+                                                                            <button class="edit-btn" data-toggle="modal"
+                                                                                data-target="#editModal"
+                                                                                data-id="<%= invoice._id %>"
+                                                                                data-invoiceid="<%= invoice.InvoiceID %>"
+                                                                                data-apartid="<%= invoice.ApartID %>"
+                                                                                data-curentdateterm="<%= invoice.CurentDateTerm %>"
+                                                                                data-nextpaymentterm="<%= invoice.NextPaymentTerm %>"
+                                                                                data-apartmentfee="<%= invoice.ApartmentFee %>"
+                                                                                data-electricityfee="<%= invoice.ElectricityFee %>"
+                                                                                data-waterfee="<%= invoice.WaterFee %>">
+                                                                                <i class="fa-solid fa-pencil"></i>
+                                                                            </button>
+                                                                            <button class="delete-btn"
+                                                                                data-toggle="modal"
+                                                                                data-target="#deleteModal"
+                                                                                data-id="<%= invoice._id %>"
+                                                                                data-apartid="<%= invoice.ApartID %>">
+                                                                                <i class="fa-solid fa-trash"></i>
+                                                                            </button>
+
+                                                                        </td>
+                                                                    </tr>
+                                                                    <% }); %>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+</body>
+<script src="/js/getDataInvoice.js"></script>

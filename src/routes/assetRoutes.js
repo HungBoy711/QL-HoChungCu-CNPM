@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const { createAssetPage, createAsset
-    , editAssetPage, editAsset,
+const { createAssetPage, createAsset,
+    editAssetPage, editAsset,
     deleteAssetPage, deleteAsset,
     getAssetPage
 } = require('../controllers/assetController')

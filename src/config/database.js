@@ -1,22 +1,7 @@
-
 const path = require('path')
 require('dotenv').config({ path: path.resolve(__dirname, '.env') })
 const mongoose = require('mongoose')
 
-// const pool = mysql.createPool({
-//     host: process.env.HOST_NAME,
-//     port: process.env.DB_PORT,
-//     user: process.env.DB_USER,
-//     password: process.env.DB_PASSWORD,
-//     database: process.env.DB_NAME,
-//     waitForConnections: true,
-//     connectionLimit: 10,
-//     maxIdle: 10,
-//     idleTimeout: 60000,
-//     queueLimit: 0,
-//     enableKeepAlive: true,
-//     keepAliveInitialDelay: 0,
-// });
 var dbState = [{
     value: 0,
     label: "disconnected"

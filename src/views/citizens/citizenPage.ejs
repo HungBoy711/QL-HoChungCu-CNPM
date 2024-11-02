@@ -1,3 +1,5 @@
+<script src="/js/searchCitizen.js"></script>
+
 <body>
     <div class="wrapper">
         <div class="main-header">
@@ -5,26 +7,29 @@
                 <div class="main-panel">
                     <div class="content">
                         <div class="container-fluid">
-                            <form id="searchForm" action="/citizenSearch" method="POST" onsubmit="updateAction()">
-                                <div style="width: 400px; top: 100px; position: absolute;" class="input-group">
-                                    <!-- Select option để chọn tìm kiếm theo Dân cư hoặc Phòng -->
-                                    <select id="searchType" class="form-control" onchange="updatePlaceholder()">
-                                        <option value="citizen">Tìm theo tên</option>
-                                        <option value="room">Tìm theo phòng</option>
-                                    </select>
-                                    <!-- Input để nhập dữ liệu tìm kiếm -->
-                                    <input id="searchInput" name="data" type="text" class="form-control"
-                                        placeholder="Tìm dân cư">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-primary" type="submit">
-                                            <i class="fa fa-search"></i>
-                                        </button>
-                                    </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6" style="margin-bottom: -1%;">
+                                    <form id="searchForm" action="/citizenSearch" method="POST"
+                                        onsubmit="updateAction()">
+                                        <div style="width: 400px;" class="input-group">
+                                            <select id="searchType" class="form-control" onchange="updatePlaceholder()">
+                                                <option value="citizen">Tìm theo tên</option>
+                                                <option value="room">Tìm theo phòng</option>
+                                            </select>
+                                            <input id="searchInput" name="data" type="text" class="form-control"
+                                                placeholder="Tìm dân cư">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-primary" type="submit">
+                                                    <i class="fa fa-search"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
-                            </form>
-                            <div style="margin-left: 86%; margin-bottom: 1%;">
-                                <a class="btn btn-primary" style="color: white;text-decoration: none;"
-                                    href="/create-AssetPage">Thêm mới dân cư</a>
+                                <div class="col-md-6 text-right">
+                                    <a class="btn btn-primary" style="color: white;text-decoration: none;"
+                                        href="/create-CitizenPage"><i class="fa-regular fa-plus"></i></a>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">

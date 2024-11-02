@@ -1,38 +1,37 @@
 <script>
-    const express = require('express');
-    const Apartment = require('../models/apartment')
     window.onload = function () {
+
+        var dataPoints = [];
 
         var chart = new CanvasJS.Chart("chartContainer", {
             animationEnabled: true,
             theme: "light2",
             title: {
-                text: "Thống kê sử dụng lượng m3 phí nước"
+                text: "Daily Sales Data"
             },
             axisY: {
-                title: "Lượng m3",
-                suffix: "m3"
-            },
-            axisX: {
-                title: "Tháng/Năm"
+                title: "Units",
+                titleFontSize: 24,
+                includeZero: true
             },
             data: [{
                 type: "column",
-                yValueFormatString: "#,##0.0#" % "",
-                dataPoints: [
-                    { label: "Tháng 1/2024", y: 4000 },
-                    { label: "China", y: 6.70 },
-                    { label: "Indonesia", y: 5.00 },
-                    { label: "Australia", y: 2.50 },
-                    { label: "Mexico", y: 2.30 },
-                    { label: "UK", y: 1.80 },
-                    { label: "United States", y: 1.60 },
-                    { label: "Japan", y: 1.60 }
-
-                ]
+                yValueFormatString: "#,### Units",
+                dataPoints: dataPoints
             }]
         });
-        chart.render();
+
+        function addData(data) {
+            for (var i = 0; i < data.length; i++) {
+                dataPoints.push({
+                    y: data[i].WaterFee
+                });
+            }
+            chart.render();
+
+        }
+
+        $.getJSON("http://localhost:8081/Data", addData);
 
     }
 </script>

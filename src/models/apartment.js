@@ -2,11 +2,10 @@ const mongoose = require('mongoose')
 
 const apartmentSchema = new mongoose.Schema({
     ApartID: String,
+    CitizenCount: Number,
     Floor: Number,
     Status: String,
     Size: String,
-    WaterFee: String,
-    ElectricityFee: String,
 });
 const Apartment = mongoose.model('Apartment', apartmentSchema);
 

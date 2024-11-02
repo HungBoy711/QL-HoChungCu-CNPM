@@ -16,18 +16,16 @@ const createApartmentPage = (req, res) => {
 }
 const createApartment = async (req, res) => {
     let ApartID = req.body.ApartID
+    let CitizenCount = req.body.CitizenCount
     let Floor = req.body.Floor
     let Status = req.body.Status
     let Size = req.body.Size
-    let WaterFee = req.body.WaterFee
-    let ElectricityFee = req.body.ElectricityFee
     await Apartment.create({
         ApartID: ApartID,
+        CitizenCount: CitizenCount,
         Floor: Floor,
         Status: Status,
         Size: Size,
-        WaterFee: WaterFee,
-        ElectricityFee: ElectricityFee,
     }
     )
 
@@ -41,14 +39,13 @@ const editApartmentPage = async (req, res) => {
 const editApartment = async (req, res) => {
     let id = req.body.id
     let ApartID = req.body.ApartID
+    let CitizenCount = req.body.CitizenCount
     let Floor = req.body.Floor
     let Status = req.body.Status
     let Size = req.body.Size
-    let WaterFee = req.body.WaterFee
-    let ElectricityFee = req.body.ElectricityFee
     await Apartment.updateOne({ _id: id }, {
-        ApartID: ApartID, Floor: Floor, Status: Status, Size: Size,
-        WaterFee: WaterFee, ElectricityFee: ElectricityFee
+        ApartID: ApartID, CitizenCount: CitizenCount,
+        Floor: Floor, Status: Status, Size: Size
     });
     res.redirect('/apartment');
 }
