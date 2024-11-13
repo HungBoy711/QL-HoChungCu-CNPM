@@ -1,9 +1,7 @@
 const express = require('express');
 const Citizen = require('../models/citizen')
 
-const getHomePage = async (req, res) => {
-    return res.render('home/homePage.ejs')
-}
+
 
 const getCitizenPage = async (req, res) => {
     let results = await Citizen.find({});
@@ -91,7 +89,7 @@ const deleteCitizen = async (req, res) => {
     res.redirect('/citizen');
 }
 module.exports = {
-    getHomePage, getCitizenPage, createCitizen, createCitizenPage,
+    getCitizenPage, createCitizen, createCitizenPage,
     deleteCitizenPage, deleteCitizen, editCitizenPage, editCitizen
     , searchCitizen, searchCitizenRoom
 }

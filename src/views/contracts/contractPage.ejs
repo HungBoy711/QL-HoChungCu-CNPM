@@ -31,6 +31,7 @@
                                                                 <tr>
                                                                     <th scope="col" style="display: none;">#</th>
                                                                     <th scope="col">Mã hợp đồng</th>
+                                                                    <th scope="col">Số căn hộ</th>
                                                                     <th scope="col">Chủ sở hữu</th>
                                                                     <th scope="col">Loại hợp đồng</th>
                                                                     <th scope="col">Ngày bắt đầu</th>
@@ -47,6 +48,9 @@
                                                                         </td>
                                                                         <td>
                                                                             <%= contract.ContractID %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%= contract.ApartNumber %>
                                                                         </td>
                                                                         <td>
                                                                             <%= contract.Owner%>
@@ -68,6 +72,7 @@
                                                                                 data-target="#editModal"
                                                                                 data-id="<%= contract.id %>"
                                                                                 data-contractID="<%= contract.ContractID %>"
+                                                                                data-apartnumber="<%= contract.ApartNumber %>"
                                                                                 data-owner="<%= contract.Owner%>"
                                                                                 data-contractType="<%= contract.ContractType %>"
                                                                                 data-contractStartDate="<%= contract.ContractStartDate %>"

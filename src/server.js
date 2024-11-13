@@ -6,22 +6,19 @@ const configViewEngine = require('./config/viewEngine');
 const routes = require('./routes/web')
 const connection = require('./config/database')
 const { MongoClient } = require('mongodb')
-// const Apartment = require('./models/apartment')
-
+const cookieParser = require('cookie-parser');
 
 const app = express()
 const port = process.env.PORT
 const hostname = process.env.HOST_NAME
 
+app.use(cookieParser());
 
-//config req.body
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-//config view
 configViewEngine(app)
 
-//config route
 app.use('/', routes);
 
 connection();

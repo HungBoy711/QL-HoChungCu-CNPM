@@ -1,13 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const { createCitizenPage, createCitizen, getHomePage, getCitizenPage,
+const verifyToken = require('../middleware/authMiddleware');
+const { createCitizenPage, createCitizen, getCitizenPage,
     deleteCitizenPage, deleteCitizen, editCitizenPage, editCitizen,
     searchCitizen, searchCitizenRoom
 } = require('../controllers/citizenController')
 
-router.get('/', getHomePage)
 
-router.get('/citizen', getCitizenPage)
+router.get('/citizen', verifyToken, getCitizenPage)
 router.post('/citizenSearch', searchCitizen)
 router.post('/citizenRoomSearch', searchCitizenRoom)
 router.get('/create-CitizenPage', createCitizenPage)

@@ -3,9 +3,8 @@ $('#editModal').on('show.bs.modal', function (event) {
 
     var ID = button.data('id');
     var InvoiceID = button.data('invoiceid');
-    var ApartID = button.data('apartid');
-    var CurentDateTerm = button.data('curentdateterm');
-    var NextPaymentTerm = button.data('nextpaymentterm');
+    var ContractID = button.data('contractid');
+    var PaymentTerm = button.data('paymentterm');
     var ApartmentFee = button.data('apartmentfee');
     var ElectricityFee = button.data('electricityfee');
     var WaterFee = button.data('waterfee');
@@ -13,9 +12,8 @@ $('#editModal').on('show.bs.modal', function (event) {
     var modal = $(this);
     modal.find('#ID').val(ID);
     modal.find('#InvoiceID').val(InvoiceID);
-    modal.find('#ApartID').val(ApartID);
-    modal.find('#CurentDateTerm').val(CurentDateTerm);
-    modal.find('#NextPaymentTerm').val(NextPaymentTerm);
+    modal.find('#ContractID').val(ContractID);
+    modal.find('#PaymentTerm').val(PaymentTerm);
     modal.find('#ApartmentFee').val(ApartmentFee);
     modal.find('#ElectricityFee').val(ElectricityFee);
     modal.find('#WaterFee').val(WaterFee);
@@ -24,9 +22,9 @@ $('#editModal').on('show.bs.modal', function (event) {
 $('#deleteModal').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
     var ID = button.data('id');
-    var ApartID = button.data('apartid');
+    var Owner = button.data('owner');
 
     var modal = $(this);
     modal.find('#ID').val(ID);
-    modal.find('#ApartID').val(ApartID);
+    modal.find('#Owner').val(Owner);
 });

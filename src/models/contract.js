@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 
 const contractSchema = new mongoose.Schema({
     ContractID: String,
+    ApartNumber: Number,
     Owner: String,
     ContractType: String,
     ContractStartDate: String,

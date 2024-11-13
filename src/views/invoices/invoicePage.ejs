@@ -29,16 +29,17 @@
                                                             <thead>
                                                                 <tr>
                                                                     <th scope="col" style="display: none;">#</th>
-                                                                    <th scope="col">Mã hoá đơn</th>
-                                                                    <th scope="col">Số căn hộ</th>
-                                                                    <th scope="col">Hạn thanh toán hiện
-                                                                        tại</th>
-                                                                    <th scope="col">Hạn thanh toán tiếp
-                                                                        theo</th>
-                                                                    <th scope="col">Phí căn hộ</th>
-                                                                    <th scope="col">Phí điện</th>
-                                                                    <th scope="col">Phí nước</th>
-                                                                    <th scope="col" class="col-3">Chức năng</th>
+                                                                    <th scope="col" class="col-1">Mã hoá đơn</th>
+                                                                    <th scope="col" class="col-1">Mã hợp đồng</th>
+                                                                    <th scope="col" class="col-1">Số căn hộ</th>
+                                                                    <th scope="col">Chủ căn hộ</th>
+                                                                    <th scope="col">Kỳ hạn thanh toán </th>
+                                                                    <th scope="col" class="col-1-5">Phí căn hộ</th>
+                                                                    <th scope="col" class="col-1-5">Phí điện</th>
+                                                                    <th scope="col" class="col-1-5">Phí nước</th>
+                                                                    <th scope="col" class="col-1-5">Tổng phí</th>
+                                                                    <th scope="col" class="text-center">Chức năng
+                                                                    </th>
                                                                 </tr>
                                                             </thead>
 
@@ -52,13 +53,16 @@
                                                                             <%= invoice.InvoiceID %>
                                                                         </td>
                                                                         <td>
-                                                                            <%= invoice.ApartID %>
+                                                                            <%= invoice.Details.ContractID %>
                                                                         </td>
                                                                         <td>
-                                                                            <%= invoice.CurentDateTerm %>
+                                                                            <%= invoice.Details.ApartNumber %>
                                                                         </td>
                                                                         <td>
-                                                                            <%= invoice.NextPaymentTerm %>
+                                                                            <%= invoice.Details.Owner %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%= invoice.PaymentTerm %>
                                                                         </td>
                                                                         <td>
                                                                             <%= invoice.ApartmentFee %> VND
@@ -69,19 +73,17 @@
                                                                         <td>
                                                                             <%= invoice.WaterFee %> VND
                                                                         </td>
-                                                                        <td style="width: 200px;">
-                                                                            <!-- <button type="button"
-                                                                                class="btn btn-primary">
-                                                                                Xác nhận thanh toán
+                                                                        <td>
+                                                                            <%= invoice.Total %> VND
+                                                                        </td>
+                                                                        <td style="width: 200px;" class="text-center">
 
-                                                                            </button> -->
                                                                             <button class="edit-btn" data-toggle="modal"
                                                                                 data-target="#editModal"
                                                                                 data-id="<%= invoice._id %>"
                                                                                 data-invoiceid="<%= invoice.InvoiceID %>"
-                                                                                data-apartid="<%= invoice.ApartID %>"
-                                                                                data-curentdateterm="<%= invoice.CurentDateTerm %>"
-                                                                                data-nextpaymentterm="<%= invoice.NextPaymentTerm %>"
+                                                                                data-contractid="<%= invoice.Details.ContractID %>"
+                                                                                data-paymentterm="<%= invoice.PaymentTerm %>"
                                                                                 data-apartmentfee="<%= invoice.ApartmentFee %>"
                                                                                 data-electricityfee="<%= invoice.ElectricityFee %>"
                                                                                 data-waterfee="<%= invoice.WaterFee %>">
@@ -91,10 +93,13 @@
                                                                                 data-toggle="modal"
                                                                                 data-target="#deleteModal"
                                                                                 data-id="<%= invoice._id %>"
-                                                                                data-apartid="<%= invoice.ApartID %>">
+                                                                                data-owner="<%= invoice.Details.Owner %>">
                                                                                 <i class="fa-solid fa-trash"></i>
                                                                             </button>
-
+                                                                            <button type="button"
+                                                                                class="btn btn-primary" id="btnPay">
+                                                                                Thanh toán
+                                                                            </button>
                                                                         </td>
                                                                     </tr>
                                                                     <% }); %>
@@ -110,4 +115,15 @@
                     </div>
                 </div>
 </body>
+<style>
+    .col-1-5 {
+        flex: 0 0 12.5%;
+        /* Chiếm 1.5 cột trong tổng số 12 cột */
+        max-width: 12.5%;
+    }
+
+    #btnPay {
+        margin-left: 3%;
+    }
+</style>
 <script src="/js/getDataInvoice.js"></script>

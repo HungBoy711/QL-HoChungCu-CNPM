@@ -1,24 +1,33 @@
 const express = require('express');
 const Invoice = require('../models/invoice')
-
-
+const Contract = require('../models/contract')
+const PaymentHistory = require('../models/paymentHistory')
 
 const getInvoicePage = async (req, res) => {
     let results = await Invoice.aggregate([
         {
+            $lookup: {
+                from: "contracts",
+                localField: "ContractID",
+                foreignField: "ContractID",
+                as: "Details"
+            }
+        },
+        { $unwind: "$Details" },
+        {
             $project: {
                 _id: 1,
-                CurentDateTerm: {
-                    $dateToString: { format: "%Y-%m-%d", date: "$CurentDateTerm" },
+                PaymentTerm: {
+                    $dateToString: { format: "%Y-%m-%d", date: "$PaymentTerm" }
                 },
-                NextPaymentTerm: {
-                    $dateToString: { format: "%Y-%m-%d", date: "$NextPaymentTerm" },
-                },
-                ApartID: 1,
                 InvoiceID: 1,
                 ApartmentFee: 1,
                 ElectricityFee: 1,
-                WaterFee: 1
+                WaterFee: 1,
+                Total: { $sum: ["$ApartmentFee", "$ElectricityFee", "$WaterFee"] },
+                "Details.ContractID": 1,
+                "Details.ApartNumber": 1,
+                "Details.Owner": 1
             }
         }
     ]);
@@ -27,41 +36,35 @@ const getInvoicePage = async (req, res) => {
 
 const createInvoice = async (req, res) => {
     let InvoiceID = req.body.InvoiceID;
-    let ApartID = req.body.ApartID;
-    let CurentDateTerm = req.body.CurentDateTerm;
-    let NextPaymentTerm = req.body.NextPaymentTerm;
+    let ContractID = req.body.ContractID;
+    let PaymentTerm = req.body.PaymentTerm;
     let ApartmentFee = req.body.ApartmentFee;
     let ElectricityFee = req.body.ElectricityFee;
     let WaterFee = req.body.WaterFee;
 
     await Invoice.create({
         InvoiceID: InvoiceID,
-        ApartID: ApartID,
-        CurentDateTerm: CurentDateTerm,
-        NextPaymentTerm: NextPaymentTerm,
+        ContractID: ContractID,
+        PaymentTerm: PaymentTerm,
         ApartmentFee: ApartmentFee,
         ElectricityFee: ElectricityFee,
         WaterFee: WaterFee,
     });
-
-
     res.redirect('/invoice');
 }
 const editInvoice = async (req, res) => {
     let ID = req.body.ID;
-    let ApartID = req.body.ApartID;
     let InvoiceID = req.body.InvoiceID;
-    let CurentDateTerm = req.body.CurentDateTerm;
-    let NextPaymentTerm = req.body.NextPaymentTerm;
+    let ContractID = req.body.ContractID;
+    let PaymentTerm = req.body.PaymentTerm;
     let ApartmentFee = req.body.ApartmentFee;
     let ElectricityFee = req.body.ElectricityFee;
     let WaterFee = req.body.WaterFee;
 
     await Invoice.updateOne({ _id: ID }, {
         InvoiceID: InvoiceID,
-        ApartID: ApartID,
-        CurentDateTerm: CurentDateTerm,
-        NextPaymentTerm: NextPaymentTerm,
+        ContractID: ContractID,
+        PaymentTerm: PaymentTerm,
         ApartmentFee: ApartmentFee,
         ElectricityFee: ElectricityFee,
         WaterFee: WaterFee
@@ -72,6 +75,11 @@ const editInvoice = async (req, res) => {
 const deleteInvoice = async (req, res) => {
     let ID = req.body.ID;
     await Invoice.deleteOne({ _id: ID });
+    res.redirect('/invoice');
+}
+
+const paymentInvoice = async (req, res) => {
+
     res.redirect('/invoice');
 }
 

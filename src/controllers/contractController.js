@@ -7,6 +7,7 @@ const getContractPage = async (req, res) => {
 }
 const createContract = async (req, res) => {
     let ContractID = req.body.ContractID
+    let ApartNumber = req.body.ApartNumber
     let Owner = req.body.Owner
     let ContractType = req.body.ContractType
     let ContractStartDate = req.body.ContractStartDate
@@ -14,6 +15,7 @@ const createContract = async (req, res) => {
     let ContractStatus = req.body.ContractStatus
     await Contract.create({
         ContractID: ContractID,
+        ApartNumber: ApartNumber,
         Owner: Owner,
         ContractType: ContractType,
         ContractStartDate: ContractStartDate,
@@ -34,6 +36,7 @@ const deleteContract = async (req, res) => {
 const editContract = async (req, res) => {
     let ID = req.body.ID;
     let ContractID = req.body.ContractID;
+    let ApartNumber = req.body.ApartNumber
     let Owner = req.body.Owner;
     let ContractType = req.body.ContractType;
     let ContractStartDate = req.body.ContractStartDate;
@@ -42,6 +45,7 @@ const editContract = async (req, res) => {
 
     await Contract.updateOne({ _id: ID }, {
         ContractID: ContractID,
+        ApartNumber: ApartNumber,
         Owner: Owner,
         ContractType: ContractType,
         ContractStartDate: ContractStartDate,
