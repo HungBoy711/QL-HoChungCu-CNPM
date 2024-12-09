@@ -5,102 +5,59 @@
                 <div class="main-panel">
                     <div class="content">
                         <div class="container-fluid">
-                            <div class="row mb-3">
-                                <div class="col-md-6">
-                                </div>
-                                <div class="col-md-6 text-right">
-                                    <button type="button" class="btn btn-primary" data-toggle="modal"
-                                        data-target="#createModal">
-                                        <i class="fa-regular fa-plus"></i>
-                                    </button>
-                                </div>
-                            </div>
                             <div class="row">
                                 <div class="col-md-12">
+                                    <form action="/searchPaymentDate" method="post">
+                                        <input type="month" name="month">
+                                        <button class="btn btn-primary" type="submit"><i
+                                                class="fa fa-search"></i></button>
+                                    </form>
                                     <div class="card">
                                         <div class="card-header">
-                                            <div class="card-title">Danh sách hoá đơn</div>
+                                            <div class="card-title">Lịch sử chủ hộ thanh toán</div>
                                         </div>
                                         <div class="card-body">
                                             <table class="table table-hover">
                                                 <thead>
                                                     <tr>
-                                                        <th scope="col" style="display: none;">#</th>
-                                                        <th scope="col" class="col-1">Mã hoá đơn</th>
-                                                        <th scope="col" class="col-1">Mã hợp đồng</th>
-                                                        <th scope="col" class="col-1">Số căn hộ</th>
-                                                        <th scope="col">Chủ căn hộ</th>
-                                                        <th scope="col">Kỳ hạn thanh toán </th>
-                                                        <th scope="col" class="col-1-5">Phí căn hộ</th>
-                                                        <th scope="col" class="col-1-5">Phí điện</th>
-                                                        <th scope="col" class="col-1-5">Phí nước</th>
-                                                        <th scope="col" class="col-1-5">Tổng phí</th>
-                                                        <th scope="col" class="text-center">Chức năng
-                                                        </th>
+                                                        <th scope="col">Mã hóa đơn</th>
+                                                        <th scope="col">Hóa đơn tháng</th>
+                                                        <th scope="col">Căn hộ</th>
+                                                        <th scope="col">Chủ sở hữu</th>
+                                                        <th scope="col">Ngày thanh toán</th>
+                                                        <th scope="col" class="col-1">Chức năng</th>
                                                     </tr>
                                                 </thead>
 
                                                 <tbody>
-                                                    <% listInvoices.forEach(function(invoice) { %>
+                                                    <% listPaymentHistories.forEach(function(payment) { %>
                                                         <tr>
                                                             <td style="display: none;">
-                                                                <%= invoice._id %>
+                                                                <%= payment.id %>
                                                             </td>
                                                             <td>
-                                                                <%= invoice.InvoiceID %>
+                                                                <%= payment.ServiceFeeID %>
                                                             </td>
                                                             <td>
-                                                                <%= invoice.Details.ContractID %>
+                                                                <%= payment.PaymentMonth %>
                                                             </td>
                                                             <td>
-                                                                <%= invoice.Details.ApartNumber %>
+                                                                <%= payment.ApartID %>
                                                             </td>
                                                             <td>
-                                                                <%= invoice.Details.Owner %>
+                                                                <%= payment.Owner %>
                                                             </td>
                                                             <td>
-                                                                <%= invoice.PaymentTerm %>
-                                                            </td>
-                                                            <td>
-                                                                <%= invoice.ApartmentFee %> VND
-                                                            </td>
-                                                            <td>
-                                                                <%= invoice.ElectricityFee %> VND
-                                                            </td>
-                                                            <td>
-                                                                <%= invoice.WaterFee %> VND
-                                                            </td>
-                                                            <td>
-                                                                <%= invoice.Total %> VND
+                                                                <%= payment.PaymentDate %>
                                                             </td>
                                                             <td style="width: 200px;" class="text-center">
 
-                                                                <button class="edit-btn" data-toggle="modal"
-                                                                    data-target="#editModal"
-                                                                    data-id="<%= invoice._id %>"
-                                                                    data-invoiceid="<%= invoice.InvoiceID %>"
-                                                                    data-contractid="<%= invoice.Details.ContractID %>"
-                                                                    data-paymentterm="<%= invoice.PaymentTerm %>"
-                                                                    data-apartmentfee="<%= invoice.ApartmentFee %>"
-                                                                    data-electricityfee="<%= invoice.ElectricityFee %>"
-                                                                    data-waterfee="<%= invoice.WaterFee %>">
-                                                                    <i class="fa-solid fa-pencil"></i>
-                                                                </button>
-                                                                <button class="delete-btn" data-toggle="modal"
-                                                                    data-target="#deleteModal"
-                                                                    data-id="<%= invoice._id %>"
-                                                                    data-owner="<%= invoice.Details.Owner %>">
-                                                                    <i class="fa-solid fa-trash"></i>
-                                                                </button>
-                                                                <button type="button" class="btn btn-primary"
-                                                                    id="btnPay">
-                                                                    Thanh toán
-                                                                </button>
                                                             </td>
                                                         </tr>
                                                         <% }); %>
                                                 </tbody>
                                             </table>
+
                                         </div>
                                     </div>
                                 </div>
@@ -122,4 +79,4 @@
         margin-left: 3%;
     }
 </style>
-<script src="/js/getDataInvoice.js"></script>
+<script src="/js/getDatapayment.js"></script>

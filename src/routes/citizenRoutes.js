@@ -1,20 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const verifyToken = require('../middleware/authMiddleware');
-const { createCitizenPage, createCitizen, getCitizenPage,
-    deleteCitizenPage, deleteCitizen, editCitizenPage, editCitizen,
+const { createCitizen, getCitizenPage,
+    deleteCitizen, editCitizen,
     searchCitizen, searchCitizenRoom
 } = require('../controllers/citizenController')
 
-
 router.get('/citizen', verifyToken, getCitizenPage)
-router.post('/citizenSearch', searchCitizen)
-router.post('/citizenRoomSearch', searchCitizenRoom)
-router.get('/create-CitizenPage', createCitizenPage)
+router.post('/citizenSearch', verifyToken, searchCitizen)
+router.post('/citizenRoomSearch', verifyToken, searchCitizenRoom)
 router.post('/create-Citizen', createCitizen)
-router.get('/delete-CitizenPage/:id', deleteCitizenPage)
 router.post('/delete-Citizen', deleteCitizen)
-router.get('/edit-CitizenPage/:id', editCitizenPage)
 router.post('/edit-Citizen', editCitizen)
 
 module.exports = router

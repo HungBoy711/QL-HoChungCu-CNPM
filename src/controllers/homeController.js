@@ -27,7 +27,7 @@ const getData = async (req, res) => {
             }
         ]);
 
-        const totalInvoive = results ? results.totalAmount : 0; // Check if results exist
+        const totalInvoive = results ? results.totalAmount : 0// Check if results exist
 
         let ContractWithBuy = await Contract.find({ ContractType: "Mua bán" });
         let ContractWithRent = await Contract.find({ ContractType: "Cho thuê" });
@@ -44,7 +44,7 @@ const getData = async (req, res) => {
         });
     } catch (error) {
         console.error("Lỗi data:", error);
-        return res.render('home/errorData.ejs');
+        return res.render('errorData.ejs');
     }
 }
 

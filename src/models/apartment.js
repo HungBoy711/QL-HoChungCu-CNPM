@@ -1,11 +1,11 @@
 const mongoose = require('mongoose')
 
 const apartmentSchema = new mongoose.Schema({
-    ApartID: String,
-    CitizenCount: Number,
-    Floor: Number,
-    Status: String,
-    Size: String,
+    ApartID: { type: Number, unique: true, required: true },
+    CitizenCount: { type: Number, required: true },
+    Floor: { type: Number, required: true },
+    Status: { type: String, required: true },
+    Size: { type: Number, required: true }
 });
 const Apartment = mongoose.model('Apartment', apartmentSchema);
 

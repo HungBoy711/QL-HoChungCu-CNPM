@@ -13,7 +13,6 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 
-
 <body>
     <div class="logo-header">
         <a href="index.html" class="logo">
@@ -110,10 +109,13 @@
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false"> <img
+                    <a class="dropdown-toggle profile-pic" data-toggle="dropdown" aria-expanded="false"> <img
                             src="/assets/img/profile.jpg" alt="user-img" width="36" class="img-circle"><span></span>
-                        <%=user.Username %>
-                            </span></span>
+
+                        <h7>
+                            <%=user.Username %>
+                        </h7>
+
                     </a>
                     <ul class="dropdown-menu dropdown-user">
 
@@ -162,7 +164,7 @@
                         <i class="fa-solid fa-user"></i>
                         <p>Quản lý thu chi</p>
                     </a>
-                    <ul class="collapse list-unstyled" id="invoiceDropdown">
+                    <!-- <ul class="collapse list-unstyled" id="invoiceDropdown">
                         <li class="nav-item">
                             <a href="/invoice">
                                 <i class="fa-solid fa-clipboard-list"></i>
@@ -175,9 +177,22 @@
                                 <p>Lịch sử thanh toán</p>
                             </a>
                         </li>
+                    </ul> -->
+                    <ul class="collapse list-unstyled" id="invoiceDropdown">
+                        <li class="nav-item">
+                            <a href="/serviceFee">
+                                <i class="fa-solid fa-clipboard-list"></i>
+                                <p>Quản lý phí dịch vụ</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/paymentHistory">
+                                <i class="fa-solid fa-clock-rotate-left"></i>
+                                <p>Lịch sử thanh toán phí</p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
-
                 <li class="nav-item">
                     <a href="/user">
                         <i class="fa-solid fa-user"></i>

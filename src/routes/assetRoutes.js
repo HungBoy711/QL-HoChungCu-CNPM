@@ -1,12 +1,13 @@
 const express = require('express');
 const router = express.Router();
+const verifyToken = require('../middleware/authMiddleware');
 const { createAssetPage, createAsset,
     editAssetPage, editAsset,
     deleteAssetPage, deleteAsset,
     getAssetPage
 } = require('../controllers/assetController')
 
-router.get('/asset/:AssetCatID', getAssetPage)
+router.get('/asset/:AssetCatID', verifyToken, getAssetPage)
 router.get('/create-AssetPage', createAssetPage)
 router.post('/create-Asset', createAsset)
 router.get('/asset/edit-AssetPage/:id', editAssetPage)

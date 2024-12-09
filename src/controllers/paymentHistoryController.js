@@ -1,40 +1,105 @@
 const express = require('express');
 const PaymentHistory = require('../models/paymentHistory')
-const Invoice = require('../models/invoice')
+
+const api_paid = process.env.API_GET_PAID;
+const api_key = process.env.API_KEY;
 
 const getPaymentHistoryPage = async (req, res) => {
     let results = await PaymentHistory.aggregate([
         {
-            $lookup: {
-                from: "invoices",
-                localField: "InvoiceID",
-                foreignField: "InvoiceID",
-                as: "PaymentInfo"
-            }
-        },
-        { $unwind: "$PaymentInfo" },
-        {
             $project: {
                 _id: 1,
-                InvoiceID: 1,
+                ServiceFeeID: 1,
+                Owner: 1,
+                ApartID: 1,
+                PaymentMonth: {
+                    $dateToString: { format: "%m-%Y", date: "$PaymentMonth" }
+                },
                 PaymentDate: {
-                    $dateToString: { format: "%Y-%m-%d", date: "$PaymentDate" }
+                    $dateToString: { format: "%d-%m-%Y", date: "$PaymentDate" }
                 },
-                "PaymentInfo.PaymentTerm": {
-                    $dateToString: { format: "%Y-%m-%d", date: "$PaymentInfo.PaymentTerm" }
-                },
-                "PaymentInfo.ApartmentFee": 1,
-                "PaymentInfo.ElectricityFee": 1,
-                "PaymentInfo.WaterFee": 1,
-                "PaymentInfo.Total": 1,
-                Description: 1,
-
+                TotalFee: 1
             }
-        }
+        },
+        { $sort: { _id: -1 } }
     ]);
     return res.render('paymentHistories/paymentHistoryPage.ejs', { listPaymentHistories: results })
 }
 
+const searchPaymentDate = async (req, res) => {
+    try {
+        let month = req.body.month;
+        let monthString = `${month}${"-01"}`;
+        console.log(monthString)
+        let results = await PaymentHistory.aggregate([
+            {
+                $match: {
+                    PaymentMonth: {
+                        $eq: new Date(monthString)
+                    }
+                }
+            },
+            {
+                $project: {
+                    _id: 1,
+                    ServiceFeeID: 1,
+                    Owner: 1,
+                    ApartID: 1,
+                    PaymentMonth: {
+                        $dateToString: { format: "%m-%Y", date: "$PaymentMonth" }
+                    },
+                    PaymentDate: {
+                        $dateToString: { format: "%d-%m-%Y", date: "$PaymentDate" }
+                    },
+                    TotalFee: 1
+                }
+            }
+        ]);
+        return res.render('paymentHistories/paymentHistoryPage.ejs', { listPaymentHistories: results })
+    }
+    catch (error) {
+        console.log(error)
+    }
+}
+
+
+const getPaymentHistoryBank = async (req, res) => {
+    try {
+        const response = await fetch(api_paid, {
+            headers: {
+                Authorization: `apikey ${api_key}`,
+                "Content-Type": "application/json",
+            },
+        });
+        const dataPayment = await response.json();
+
+        const formattedRecords = dataPayment.data.records.map(record => {
+            return {
+                ...record,
+                formattedDate: formatDate(record.when),
+                money: formatMoney(record.amount)
+            };
+        });
+        return res.render('paymentHistories/paymentHistoryPage.ejs', {
+            listPaymentHistories: formattedRecords,
+        });
+
+    } catch (error) {
+        console.log(error);
+    }
+};
+const formatMoney = (amout) => {
+    const moneyConvert = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' });
+    return moneyConvert.format(amout);
+}
+const formatDate = () => {
+    const date = new Date();
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
+};
+
 module.exports = {
-    getPaymentHistoryPage
+    getPaymentHistoryPage, searchPaymentDate
 }

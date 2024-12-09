@@ -1,38 +1,28 @@
-<body>
-    <div class="wrapper">
-        <div class="main-header">
-            <%- include('../layouts/index.ejs') %>
-                <div class="main-panel">
-                    <div class="content">
-                        <form action="/delete-Apartment" method="POST">
-                            <div>
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title">Xoá cư dân</h5>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div style="display: none;">
-
-                                                <input type="text" name="ID" value="<%= apart.id %>">
-                                            </div>
-                                            <p>
-                                                Phòng <%= apart.ApartID %>
-                                            </p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button onclick="history.back()" type="button" class="btn btn-secondary"
-                                                data-dismiss="modal">Hủy</button>
-                                            <button type="submit" class="btn btn-danger ">Xác nhận</button>
-                                        </div>
-                                    </div>
+<div class="modal fade" id="deleteApartmentModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form action="/delete-Apartment" method="POST">
+                    <input type="hidden" id="ID" name="ID">
+                    <div>
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Xoá căn hộ</h5>
+                                </div>
+                                <div class="modal-body">
+                                    Bạn có chắc chắn muốn xoá căn hộ <input style="border: none;" type="text"
+                                        id="ApartID">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                                    <button type="submit" class="btn btn-danger">Xác nhận</button>
                                 </div>
                             </div>
-                        </form>
+                        </div>
                     </div>
-                </div>
+                </form>
+            </div>
         </div>
     </div>
-</body>
-
-</html>
+</div>

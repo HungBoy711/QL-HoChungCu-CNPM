@@ -4,92 +4,147 @@ const Citizen = require('../models/citizen')
 
 
 const getCitizenPage = async (req, res) => {
-    let results = await Citizen.find({});
+    let results = await Citizen.aggregate([
+        {
+            $project: {
+                _id: 1,
+                CitizenID: 1,
+                ApartID: 1,
+                Relationship: 1,
+                Name: 1,
+                BirthDay: {
+                    $dateToString: { format: "%d-%m-%Y", date: "$BirthDay" }
+                },
+                Gender: 1,
+                Hometown: 1,
+                Phone: 1
+            }
+        }
+    ]);
     return res.render('citizens/citizenPage.ejs', { listCitizens: results })
 }
 const searchCitizen = async (req, res) => {
     let name = req.body.data
-    if (!name || name.trim() === '') {
-        return res.redirect('/citizen');
+    try {
+        if (!name || name.trim() === '') {
+            return res.redirect('/citizen');
+        }
+        const results = await Citizen.aggregate([
+            {
+                $match: { Name: { $regex: name, $options: "i" } }
+            },
+            {
+                $project: {
+                    _id: 1,
+                    CitizenID: 1,
+                    ApartID: 1,
+                    Relationship: 1,
+                    Name: 1,
+                    BirthDay: {
+                        $dateToString: { format: "%d-%m-%Y", date: "$BirthDay" }
+                    },
+                    Gender: 1,
+                    Hometown: 1,
+                    Phone: 1
+                }
+            }
+        ]);
+        return res.render('citizens/citizenPage.ejs', { listCitizens: results })
     }
-    let results = await Citizen.find({
-        Name: { $regex: name, $options: "i" }
-    });
-    return res.render('citizens/citizenPage.ejs', { listCitizens: results })
+    catch (error) {
+        res.status(400).json({ message: 'Lỗi dữ liệu tìm kiếm' });
+    }
 }
 const searchCitizenRoom = async (req, res) => {
-    let room = req.body.data
-    if (!room || room.trim() === '') {
-        return res.redirect('/citizen');
+    let room = Number(req.body.data)
+    try {
+        if (!room || room == null) {
+            return res.redirect('/citizen');
+        }
+        const results = await Citizen.aggregate(
+            [{ $match: { ApartID: room } }
+                , {
+                $project: {
+                    _id: 1,
+                    CitizenID: 1,
+                    ApartID: 1,
+                    Relationship: 1,
+                    Name: 1,
+                    BirthDay: {
+                        $dateToString: { format: "%d-%m-%Y", date: "$BirthDay" }
+                    },
+                    Gender: 1,
+                    Hometown: 1,
+                    Phone: 1
+                }
+            }
+            ]
+        );
+        return res.render('citizens/citizenPage.ejs', { listCitizens: results })
     }
-    let results = await Citizen.find({ ApartID: room });
-    return res.render('citizens/citizenPage.ejs', { listCitizens: results })
-}
-const createCitizenPage = (req, res) => {
-    return res.render('citizens/create-Citizen.ejs')
-}
-const createCitizen = async (req, res) => {
-    let CitizenID = req.body.CitizenID
-    let ApartID = req.body.ApartID
-    let Relationship = req.body.Relationship
-    let Name = req.body.Name
-    let BirthDay = req.body.BirthDay
-    let Gender = req.body.Gender
-    let Hometown = req.body.Hometown
-    let Phone = req.body.Phone
-    await Citizen.create({
-        CitizenID: CitizenID,
-        ApartID: ApartID,
-        Relationship: Relationship,
-        Name: Name,
-        BirthDay: BirthDay,
-        Gender: Gender,
-        Hometown: Hometown,
-        Phone: Phone
+    catch (error) {
+        console.log(error)
+        res.status(400).json({ message: 'Lỗi dữ liệu tìm kiếm' });
     }
-    )
+}
 
-    res.redirect('/citizen')
-}
-const editCitizenPage = async (req, res) => {
-    let CitizenID = req.params.id;
-    let citizen = await Citizen.findById(CitizenID).exec();
-    return res.render('citizens/edit-Citizen.ejs', { citizen: citizen })
+const createCitizen = async (req, res) => {
+    let { CitizenID, ApartID, Relationship, Name, BirthDay, Gender, Hometown, Phone } = req.body;
+    try {
+        await Citizen.create({
+            CitizenID,
+            ApartID,
+            Relationship,
+            Name,
+            BirthDay,
+            Gender,
+            Hometown,
+            Phone
+        })
+        res.status(200).redirect('/citizen');
+    }
+    catch (error) {
+        console.log(error)
+        res.status(400).json({ message: 'Lỗi dữ liệu ' });
+    }
+
 }
 
 const editCitizen = async (req, res) => {
-    let id = req.body.id
-    let CitizenID = req.body.CitizenID
-    let ApartID = req.body.ApartID
-    let Relationship = req.body.Relationship
-    let Name = req.body.Name
-    let Gender = req.body.Gender
-    let Hometown = req.body.Hometown
-    let BirthDay = req.body.BirthDay
-    let Phone = req.body.Phone
-
-    await Citizen.updateOne({ _id: id }, {
-        CitizenID: CitizenID, ApartID: ApartID, Relationship: Relationship,
-        Name: Name, BirthDay: BirthDay, Gender: Gender,
-        Hometown: Hometown, Phone: Phone
-    });
-    res.redirect('/citizen');
+    let { ID, CitizenID, ApartID, Relationship, Name, Gender, Hometown, BirthDay, Phone } = req.body;
+    try {
+        await Citizen.updateOne({ _id: ID }, {
+            CitizenID,
+            ApartID,
+            Relationship,
+            Name,
+            BirthDay,
+            Gender,
+            Hometown,
+            Phone
+        });
+        res.redirect('/citizen');
+    }
+    catch (error) {
+        res.status(400).json({ message: 'Lỗi dữ liệu không hợp lệ' });
+    }
 }
 
-const deleteCitizenPage = async (req, res) => {
-    let CitizenID = req.params.id;
-    let citizen = await Citizen.findById(CitizenID).exec();
-    return res.render('citizens/delete-Citizen.ejs', { citizen: citizen })
-}
 const deleteCitizen = async (req, res) => {
-    let ID = req.body.ID
-    await Citizen.deleteOne({
-        _id: ID
-    });
-    res.redirect('/citizen');
+    let ID = req.body;
+    try {
+        await Citizen.deleteOne({
+            _id: ID
+        });
+        res.redirect('/citizen');
+    }
+    catch (error) {
+        res.status(400).json({ message: 'Lỗi' });
+    }
+
 }
 module.exports = {
-    getCitizenPage, createCitizen, createCitizenPage,
-    deleteCitizenPage, deleteCitizen, editCitizenPage, editCitizen
-    , searchCitizen, searchCitizenRoom
+    getCitizenPage, createCitizen,
+    deleteCitizen, editCitizen,
+    searchCitizen, searchCitizenRoom
 }

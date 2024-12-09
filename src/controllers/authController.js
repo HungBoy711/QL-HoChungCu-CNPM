@@ -12,11 +12,11 @@ const getRegisterPage = async (req, res) => {
 }
 const createRegister = async (req, res) => {
     try {
-        const { Username, Password, Role } = req.body;
+        const { Username, Password, Role, Email, Gender, Phone } = req.body;
         const hashedPassword = await bcrypt.hash(Password, 10);
-        const user = new User({ Username, Password: hashedPassword });
+        const user = new User({ Username, Password: hashedPassword, Role, Email, Gender, Phone });
         await user.save();
-        res.status(201).json({ message: 'Tao user thanh cong' });
+        res.status(201).redirect('/login');
     } catch (error) {
         console.log(error)
         res.status(500).json({ message: 'Tao user that bai' });
@@ -42,7 +42,7 @@ const Login = async (req, res) => {
             return res.status(401).json({ error: 'Xac thuc mk that bai' });
         }
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-            expiresIn: '1h',
+            expiresIn: '7d',
         });
         res.cookie('jwt', token, { httpOnly: true, secure: true });
         return res.redirect('/')

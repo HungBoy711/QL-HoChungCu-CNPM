@@ -18,7 +18,7 @@ const getInvoicePage = async (req, res) => {
             $project: {
                 _id: 1,
                 PaymentTerm: {
-                    $dateToString: { format: "%Y-%m-%d", date: "$PaymentTerm" }
+                    $dateToString: { format: "%d-%m-%Y", date: "$PaymentTerm" }
                 },
                 InvoiceID: 1,
                 ApartmentFee: 1,
@@ -79,11 +79,23 @@ const deleteInvoice = async (req, res) => {
 }
 
 const paymentInvoice = async (req, res) => {
+    let { InvoiceID, Owner, ApartNumber, PaymentTerm, PaymentDate,
+        ApartmentFee, ElectricityFee, WaterFee, Total } = req.body
+    console.log('req', req.body)
+    try {
+        await PaymentHistory.create({
+            InvoiceID, Owner, ApartNumber, PaymentTerm, PaymentDate,
+            ApartmentFee, ElectricityFee, WaterFee, Total
+        });
 
-    res.redirect('/invoice');
+        res.status(200).redirect('/paymentHistory');
+    } catch (error) {
+        res.render('errorData.ejs');
+    };
 }
 
 module.exports = {
     getInvoicePage, createInvoice,
-    editInvoice, deleteInvoice
+    editInvoice, deleteInvoice,
+    paymentInvoice
 }
