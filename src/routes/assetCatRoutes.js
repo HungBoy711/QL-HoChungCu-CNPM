@@ -9,10 +9,10 @@ const { getAssetCatPage, createAssetCatPage, createAssetCat
 
 
 router.get('/assetCategory/', verifyToken, getAssetCatPage)
-router.get('/create-AssetCatPage', createAssetCatPage)
-router.post('/create-AssetCat', createAssetCat)
-router.get('/edit-AssetCatPage/:id', editAssetCatPage)
-router.post('/edit-AssetCat', editAssetCat)
-router.get('/delete-AssetCatPage/:id', deleteAssetCatPage)
-router.post('/delete-AssetCat', deleteAssetCat)
+router.get('/create-AssetCatPage', verifyToken, createAssetCatPage)
+router.post('/create-AssetCat', verifyToken, createAssetCat)
+router.get('/edit-AssetCatPage/:id', verifyToken, editAssetCatPage)
+router.post('/edit-AssetCat', verifyToken, editAssetCat)
+router.get('/delete-AssetCatPage/:id', verifyToken, deleteAssetCatPage)
+router.post('/delete-AssetCat', verifyToken, deleteAssetCat)
 module.exports = router;

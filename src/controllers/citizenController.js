@@ -1,7 +1,7 @@
 const express = require('express');
 const Citizen = require('../models/citizen')
-
-
+const mongoose = require('mongoose');
+const ObjectId = mongoose.Types.ObjectId;
 
 const getCitizenPage = async (req, res) => {
     let results = await Citizen.aggregate([
@@ -126,12 +126,13 @@ const editCitizen = async (req, res) => {
         res.redirect('/citizen');
     }
     catch (error) {
+        console.log(error)
         res.status(400).json({ message: 'Lỗi dữ liệu không hợp lệ' });
     }
 }
 
 const deleteCitizen = async (req, res) => {
-    let ID = req.body;
+    let ID = new ObjectId(req.body.ID);
     try {
         await Citizen.deleteOne({
             _id: ID
@@ -139,6 +140,7 @@ const deleteCitizen = async (req, res) => {
         res.redirect('/citizen');
     }
     catch (error) {
+        console.log(error)
         res.status(400).json({ message: 'Lỗi' });
     }
 

@@ -1,8 +1,7 @@
 const mongoose = require('mongoose')
 
-const paymentHistorySchema = new mongoose.Schema({
+const debitHistorySchema = new mongoose.Schema({
     ServiceFeeID: { type: String, required: true },
-    PaymentDate: { type: Date, required: true },
     Description: { type: String, required: true },
     ApartID: { type: Number, required: true },
     Owner: { type: String, required: true },
@@ -11,8 +10,9 @@ const paymentHistorySchema = new mongoose.Schema({
     GarbageFee: { type: Number, required: true },
     EnvironmentalFee: { type: Number, required: true },
     TotalFee: { type: Number, required: true },
-    Status: { type: String, required: true }
-});
-const PaymentHistory = mongoose.model('PaymentHistory', paymentHistorySchema);
+    AmountOwed: { type: Number, required: false }
 
-module.exports = PaymentHistory;
+});
+const DebitHistory = mongoose.model('DebitHistory', debitHistorySchema);
+
+module.exports = DebitHistory;

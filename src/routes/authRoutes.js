@@ -1,14 +1,16 @@
 const express = require('express');
 const router = express.Router();
 
-const { createRegister, getRegisterPage,
-    getLoginPage, Login, Logout
+const { getLoginCitizenPage,
+    getLoginPage, Login, Logout,
+    LoginCitizen
 } = require('../controllers/authController')
 
-router.get('/register', getRegisterPage)
-router.post('/create-register', createRegister)
+router.get('/loginCitizen', getLoginCitizenPage)
 router.get('/login', getLoginPage)
 router.post('/login', Login)
 router.get('/logout', Logout)
+router.post('/loginCitizen', LoginCitizen)
+
 
 module.exports = router;

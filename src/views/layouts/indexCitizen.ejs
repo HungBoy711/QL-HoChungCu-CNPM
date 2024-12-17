@@ -16,7 +16,7 @@
 <body>
     <div class="logo-header">
         <a href="index.html" class="logo">
-            Quản lý hộ chung cư
+            Website cư dân
         </a>
         <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse"
             data-target="collapse" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
@@ -111,11 +111,9 @@
                 <li class="nav-item dropdown">
                     <a class="dropdown-toggle profile-pic" data-toggle="dropdown" aria-expanded="false"> <img
                             src="/assets/img/profile.jpg" alt="user-img" width="36" class="img-circle"><span></span>
-
                         <h7>
-                            <%=user.Username %>
+                            Căn hộ <%=citizenAccount.ApartID %>
                         </h7>
-
                     </a>
                     <ul class="dropdown-menu dropdown-user">
 
@@ -132,60 +130,15 @@
                 <li class="nav-item">
                     <a href="/">
                         <i class="fa-solid fa-chart-simple"></i>
-                        <p>Thống kê và báo cáo</p>
+                        <p>Trang chủ</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="/apartment">
                         <i class="fa-solid fa-house"></i>
-                        <p>Quản lý căn hộ</p>
+                        <p>Đăng xuất</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="/citizen">
-                        <i class="fa-solid fa-person"></i>
-                        <p>Quản lý dân cư</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="/assetCategory">
-                        <i class="fa-solid fa-fire-extinguisher"></i>
-                        <p>Quản lý tài sản</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="/contract">
-                        <i class="fa-solid fa-list"></i>
-                        <p>Hợp đồng căn hộ</p>
-                    </a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a href="#invoiceDropdown" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                        <i class="fa-solid fa-user"></i>
-                        <p>Quản lý thu chi</p>
-                    </a>
-                    <ul class="collapse list-unstyled" id="invoiceDropdown">
-                        <li class="nav-item">
-                            <a href="/serviceFee">
-                                <i class="fa-solid fa-clipboard-list"></i>
-                                <p>Quản lý phí dịch vụ</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/debitHistory">
-                                <i class="fa-solid fa-clock-rotate-left"></i>
-                                <p>Lịch sử thanh toán phí</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="/user">
-                        <i class="fa-solid fa-user"></i>
-                        <p>Quản lý người dùng</p>
-                    </a>
-                </li>
-
             </ul>
         </div>
     </div>

@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 
 const citizenSchema = new mongoose.Schema({
     CitizenID: { type: String, unique: true, required: true },
+    Password: { type: Number, required: false },
     ApartID: { type: Number, required: true },
     Relationship: { type: String, required: true },
     Name: { type: String, required: true },

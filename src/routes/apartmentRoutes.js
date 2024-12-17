@@ -7,8 +7,8 @@ const { getApartmentPage, getApartmentDetail, editApartment,
 
 router.get('/apartment', verifyToken, getApartmentPage)
 router.get('/apartmentDetail/:ApartID', verifyToken, getApartmentDetail)
-router.post('/create-Apartment', createApartment)
-router.post('/delete-Apartment', deleteApartment)
-router.post('/edit-Apartment', editApartment)
+router.post('/create-Apartment', verifyToken, createApartment)
+router.post('/delete-Apartment', verifyToken, deleteApartment)
+router.post('/edit-Apartment', verifyToken, editApartment)
 
 module.exports = router

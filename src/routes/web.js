@@ -10,8 +10,10 @@ const contractRoutes = require('./contractRoutes')
 const invoiceRoutes = require('./invoiceRoutes')
 const authRoutes = require('./authRoutes')
 const userRoutes = require('./userRoutes')
-const paymentHistoryRoutes = require('./paymentHistoryRoutes')
+const debitHistoryRoutes = require('./debitHistoryRoutes')
 const serviceFeeRoutes = require('./serviceFeeRoutes')
+const citizenHomeRoutes = require('./citizenHomeRoutes')
+
 const verifyToken = require('../middleware/authMiddleware');
 
 router.get('/', verifyToken, (req, res) => {
@@ -27,7 +29,8 @@ router.use('/', contractRoutes);
 router.use('/', invoiceRoutes);
 router.use('/', authRoutes);
 router.use('/', userRoutes);
-router.use('/', paymentHistoryRoutes);
+router.use('/', debitHistoryRoutes);
 router.use('/', serviceFeeRoutes);
+router.use('/', citizenHomeRoutes);
 
 module.exports = router;

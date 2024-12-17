@@ -1,11 +1,11 @@
 const express = require('express');
-const PaymentHistory = require('../models/paymentHistory')
+const DebitHistory = require('../models/debitHistory')
 
 const api_paid = process.env.API_GET_PAID;
 const api_key = process.env.API_KEY;
 
-const getPaymentHistoryPage = async (req, res) => {
-    let results = await PaymentHistory.aggregate([
+const getDebitHistoryPage = async (req, res) => {
+    let results = await DebitHistory.aggregate([
         {
             $project: {
                 _id: 1,
@@ -15,23 +15,21 @@ const getPaymentHistoryPage = async (req, res) => {
                 PaymentMonth: {
                     $dateToString: { format: "%m-%Y", date: "$PaymentMonth" }
                 },
-                PaymentDate: {
-                    $dateToString: { format: "%d-%m-%Y", date: "$PaymentDate" }
-                },
+                AmountOwed: 1,
                 TotalFee: 1
             }
         },
         { $sort: { _id: -1 } }
     ]);
-    return res.render('paymentHistories/paymentHistoryPage.ejs', { listPaymentHistories: results })
+    return res.render('debitHistories/debitHistoryPage.ejs', { listDebitHistories: results })
 }
 
-const searchPaymentDate = async (req, res) => {
+const searchDebitDate = async (req, res) => {
     try {
         let month = req.body.month;
         let monthString = `${month}${"-01"}`;
         console.log(monthString)
-        let results = await PaymentHistory.aggregate([
+        let results = await DebitHistory.aggregate([
             {
                 $match: {
                     PaymentMonth: {
@@ -55,7 +53,7 @@ const searchPaymentDate = async (req, res) => {
                 }
             }
         ]);
-        return res.render('paymentHistories/paymentHistoryPage.ejs', { listPaymentHistories: results })
+        return res.render('debitHistories/debitHistoryPage.ejs', { listDebitHistories: results })
     }
     catch (error) {
         console.log(error)
@@ -101,5 +99,5 @@ const formatDate = () => {
 };
 
 module.exports = {
-    getPaymentHistoryPage, searchPaymentDate
+    getDebitHistoryPage, searchDebitDate
 }

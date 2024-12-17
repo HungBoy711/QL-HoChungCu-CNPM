@@ -21,6 +21,7 @@ $('#editCitizenModal').on('show.bs.modal', function (event) {
     modal.find('#Gender').val(Gender);
     modal.find('#Hometown').val(Hometown);
     modal.find('#Phone').val(Phone);
+
 });
 
 $('#deleteCitizenModal').on('show.bs.modal', function (event) {

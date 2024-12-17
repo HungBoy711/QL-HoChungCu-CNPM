@@ -1,6 +1,6 @@
 const express = require('express');
 const ServiceFee = require('../models/serviceFee')
-const PaymentHistory = require('../models/paymentHistory')
+const DebitHistory = require('../models/debitHistory')
 
 const getServiceFeePage = async (req, res) => {
     try {
@@ -85,35 +85,18 @@ const deleteServiceFee = async (req, res) => {
     }
 }
 
-const setPaymentMonth = async (req, res) => {
-    let paymentMonth = req.body.Payment
-    try {
-        await ServiceFee.updateMany({},
-            {
-                $set: {
-                    Status: "Chưa thanh toán",
-                    PaymentMonth: paymentMonth
-                }
-            }
-        )
-        res.status(200).redirect('/serviceFee');
-    }
-    catch (error) {
-        res.status(400).json({ message: 'Lỗi' });
-    }
-}
-const getPaymentPage = async (req, res) => {
+
+const getDebitPage = async (req, res) => {
     let ID = req.params.id;
     let results = await ServiceFee.findById(ID).exec();
-    console.log(results)
-    return res.render('servicefees/getPaymentPage', { servicefee: results })
+    return res.render('servicefees/getDebitPage', { servicefee: results })
 };
-const getPayment = async (req, res) => {
+const debit = async (req, res) => {
     let { ServiceFeeID, Owner, ApartID, PaymentMonth, PaymentDate, Description,
-        ParkingFee, GarbageFee, EnvironmentalFee, TotalFee, Status } = req.body;
+        ParkingFee, GarbageFee, EnvironmentalFee, TotalFee, Status, AmountOwed } = req.body;
 
     try {
-        await PaymentHistory.create({
+        await DebitHistory.create({
             ServiceFeeID,
             PaymentMonth,
             PaymentDate,
@@ -124,13 +107,10 @@ const getPayment = async (req, res) => {
             GarbageFee,
             EnvironmentalFee,
             TotalFee,
-            Status
+            Status,
+            AmountOwed
         });
-        await ServiceFee.updateOne(
-            { ServiceFeeID: ServiceFeeID },
-            { $set: { Status: Status } }
-        );
-        res.status(200).redirect('/paymentHistory');
+        res.status(200).redirect('/serviceFee');
     } catch (error) {
         console.log(error)
         res.status(400).json({ message: 'Lỗi' });
@@ -141,6 +121,5 @@ const getPayment = async (req, res) => {
 module.exports = {
     getServiceFeePage, createServiceFee,
     editServiceFee, deleteServiceFee,
-    getPayment,
-    getPaymentPage
+    debit, getDebitPage
 }

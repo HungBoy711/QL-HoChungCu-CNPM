@@ -11,10 +11,7 @@
                                         <div class="col-md ">
                                         </div>
                                         <div class="col-md-6 text-right">
-                                            <button type="button" class="btn btn-primary" data-toggle="modal"
-                                                data-target="#setPaymentTermModal">
-                                                Đặt hạn thanh toán mới cho tất cả hoá đơn
-                                            </button>
+
                                             <button type="button" class="btn btn-primary" data-toggle="modal"
                                                 data-target="#createServiceFeeModal">
                                                 <i class="fa-regular fa-plus"></i>
@@ -76,11 +73,12 @@
                                                                         <%= servicefee.Status %>
                                                                     </td>
                                                                     <td class="text-center">
-                                                                        <a href="/get-PaymentPage/<%= servicefee._id %>"
-                                                                            type="button" class="btn btn-primary">
-                                                                            Thanh toán
+                                                                        <a href="/get-DebitPage/<%= servicefee._id %>"
+                                                                            type="button" class="btn btn-primary ">
+                                                                            Ghi nợ
                                                                         </a>
                                                                     </td>
+
                                                                 </tr>
                                                                 <% }); %>
                                                         </tbody>

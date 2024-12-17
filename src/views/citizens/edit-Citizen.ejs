@@ -1,121 +1,68 @@
-<body>
-    <div class="wrapper">
-        <div class="main-header">
-            <%- include('../layouts/index.ejs') %>
-                <div class="main-panel">
-                    <div class="content">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <form action="/edit-Citizen" method="POST">
-                                        <div class="card">
-                                            <div class="card-header">
-                                                <div class="card-title">Sửa thông tin cư dân</div>
-                                            </div>
-                                            <div class="card-body">
-                                                <div style="display: none;" class="form-group">
-                                                    <label>id</label>
-                                                    <input name="id" type=" text" class="form-control"
-                                                        value="<%= citizen.id %>">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="CitizenID">Mã cư dân</label>
-                                                    <input type="text" name="CitizenID" class="form-control"
-                                                        value="<%= citizen.CitizenID %>">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="ApartID">Số phòng</label>
-                                                    <input type="text" name="ApartID" class="form-control"
-                                                        value="<%= citizen.ApartID %>">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Quan hệ</label>
-                                                    <select class="form-control" name="Relationship">
-                                                        <option>
-                                                            <%= citizen.Relationship %>
-                                                        </option>
-                                                        <option>Chủ căn hộ</option>
-                                                        <option>Thành viên căn hộ</option>
-                                                    </select>
-                                                </div>
-                                                <div class="form-group ">
-                                                    <label for="Name">Họ và tên</label>
-                                                    <input type="text" name="Name" class="form-control"
-                                                        value="<%= citizen.Name %>">
-                                                </div>
-                                                <div class="form-group ">
-                                                    <label for="BirthDay">Ngày sinh</label>
-                                                    <input type="date" name="BirthDay" class="form-control"
-                                                        value="<%= citizen.BirthDay %>">
-                                                </div>
-                                                <div class="form-check">
-                                                    <label>GiớI tính</label><br />
-                                                    <label class="form-radio-label">
-                                                        <input class="form-radio-input" type="radio" name="Gender"
-                                                            value="Nam">
-                                                        <span class="form-radio-sign">Nam</span>
-                                                    </label>
-                                                    <label class="form-radio-label ml-3">
-                                                        <input class="form-radio-input" type="radio" name="Gender"
-                                                            value="Nữ">
-                                                        <span class="form-radio-sign">Nữ</span>
-                                                    </label>
-                                                </div>
-                                                <div class="form-group ">
-                                                    <label for="Hometown">Quê quán</label>
-                                                    <input type="text" name="Hometown" class="form-control"
-                                                        value="<%= citizen.Hometown %>">
-                                                </div>
-                                                <div class="form-group ">
-                                                    <label for="Phone">Số điện thoại</label>
-                                                    <input type="text" name="Phone" class="form-control"
-                                                        value="<%= citizen.Phone %>">
-                                                </div>
-                                            </div>
-                                            <div class="card-action">
-                                                <button type="submit" class="btn btn-success">Xác nhận</button>
-
-                                                <input class="btn btn-secondary" type="button" value="Hủy"
-                                                    onclick="history.back()" />
-
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
+<div class="modal fade" id="editCitizenModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form action="/edit-Citizen" method="POST">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Sửa thông tin cư dân</div>
+                        </div>
+                        <div class="card-body">
+                            <div style="display: none;" class="form-group">
+                                <label>id</label>
+                                <input name="ID" id="ID" type=" text" class="form-control" value="">
                             </div>
+                            <div class="form-group">
+                                <label for="CitizenID">Mã cư dân</label>
+                                <input type="text" name="CitizenID" id="CitizenID" class="form-control" value="">
+                            </div>
+                            <div class="form-group">
+                                <label for="ApartID">Số phòng</label>
+                                <input type="text" name="ApartID" id="ApartID" class="form-control" value="">
+                            </div>
+                            <div class="form-group">
+                                <label>Quan hệ</label>
+                                <select class="form-control" name="Relationship" id="Relationship">
+
+                                    <option>Chủ căn hộ</option>
+                                    <option>Thành viên căn hộ</option>
+                                </select>
+                            </div>
+                            <div class="form-group ">
+                                <label for="Name">Họ và tên</label>
+                                <input type="text" name="Name" id="Name" class="form-control" value="">
+                            </div>
+                            <div class="form-group ">
+                                <label for="BirthDay">Ngày sinh</label>
+                                <input type="text" name="BirthDay" id="BirthDay" class="form-control">
+                            </div>
+                            <div class="form-check">
+                                <label>GiớI tính</label><br />
+                                <select class="form-control" name="Gender" id="Gender">
+                                    <option>Nam</option>
+                                    <option>Nữ</option>
+                                </select>
+                            </div>
+                            <div class="form-group ">
+                                <label for="Hometown">Quê quán</label>
+                                <input type="text" name="Hometown" id="Hometown" class="form-control" value="">
+                            </div>
+                            <div class="form-group ">
+                                <label for="Phone">Số điện thoại</label>
+                                <input type="text" name="Phone" id="Phone" class="form-control" value=">">
+                            </div>
+                        </div>
+                        <div class="card-action">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                            <button type="submit" class="btn btn-primary">Xác nhận</button>
+
                         </div>
                     </div>
-                    <footer class="footer">
-                        <div class="container-fluid">
-                            <nav class="pull-left">
-                                <ul class="nav">
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="http://www.themekita.com">
-                                            ThemeKita
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#">
-                                            Help
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#">
-                                            Licenses
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
-                            <div class="copyright ml-auto">
-                                2018, made with <i class="la la-heart heart text-danger"></i> by <a
-                                    href="http://www.themekita.com">ThemeKita</a>
-                            </div>
-                        </div>
-                    </footer>
-                </div>
+                </form>
+            </div>
+
         </div>
     </div>
-    </div>
-</body>
+</div>
 
 </html>

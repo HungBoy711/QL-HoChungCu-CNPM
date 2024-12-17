@@ -7,7 +7,7 @@
                         <div class="container-fluid">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <form action="/searchPaymentDate" method="post">
+                                    <form action="/searchDebitDate" method="POST">
                                         <input type="month" name="month">
                                         <button class="btn btn-primary" type="submit"><i
                                                 class="fa fa-search"></i></button>
@@ -24,31 +24,35 @@
                                                         <th scope="col">Hóa đơn tháng</th>
                                                         <th scope="col">Căn hộ</th>
                                                         <th scope="col">Chủ sở hữu</th>
-                                                        <th scope="col">Ngày thanh toán</th>
+                                                        <th scope="col">Số tiền nợ</th>
+                                                        <th scope="col">Tổng tiền</th>
                                                         <th scope="col" class="col-1">Chức năng</th>
                                                     </tr>
                                                 </thead>
 
                                                 <tbody>
-                                                    <% listPaymentHistories.forEach(function(payment) { %>
+                                                    <% listDebitHistories.forEach(function(debit) { %>
                                                         <tr>
                                                             <td style="display: none;">
-                                                                <%= payment.id %>
+                                                                <%= debit.id %>
                                                             </td>
                                                             <td>
-                                                                <%= payment.ServiceFeeID %>
+                                                                <%= debit.ServiceFeeID %>
                                                             </td>
                                                             <td>
-                                                                <%= payment.PaymentMonth %>
+                                                                <%= debit.PaymentMonth %>
                                                             </td>
                                                             <td>
-                                                                <%= payment.ApartID %>
+                                                                <%= debit.ApartID %>
                                                             </td>
                                                             <td>
-                                                                <%= payment.Owner %>
+                                                                <%= debit.Owner %>
                                                             </td>
                                                             <td>
-                                                                <%= payment.PaymentDate %>
+                                                                <%= debit.AmountOwed %> VND
+                                                            </td>
+                                                            <td>
+                                                                <%= debit.TotalFee %> VND
                                                             </td>
                                                             <td style="width: 200px;" class="text-center">
 
@@ -79,4 +83,3 @@
         margin-left: 3%;
     }
 </style>
-<script src="/js/getDatapayment.js"></script>
