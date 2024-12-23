@@ -10,6 +10,9 @@ $('#editCitizenModal').on('show.bs.modal', function (event) {
     var Gender = button.data('gender');
     var Hometown = button.data('hometown');
     var Phone = button.data('phone');
+ 
+    var date = new Date(BirthDay);
+    BirthDay = date.toISOString().split('T')[0]; 
 
     var modal = $(this);
     modal.find('#ID').val(ID);

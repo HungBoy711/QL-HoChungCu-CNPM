@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 const apartmentSchema = new mongoose.Schema({
-    ApartID: { type: Number, unique: true, required: true },
+    ApartID: { type: Number, required: true },
     CitizenCount: { type: Number, required: true },
     Floor: { type: Number, required: true },
     Status: { type: String, required: true },
